@@ -1,62 +1,63 @@
 package org.example;
-/// Single Responsibility Principle (SRP) Example
-// class should have only one reason to change which means every class should have single responsibility or single jb or single purpose
-//  //class with multiple responsiblity
-//class Baker{
-//    public void bakebBread(){
-//        System.out.println("Baking braed");
-//    }
-//     public void manageInventory(){
-//         System.out.println("manages Inventory");
-//     }
-//      public void manageSuppliers() {
-//          System.out.println("manages suppliers");
-//      }
-//      public void manageCustomer(){
-//          System.out.println("Hi customer");
-//      }
-//}
-
+// Open/Closed Principle
+//// Incorrect Approach
+//class Shape {
+//    private String type;
 //
+//    public double calculateArea() {
+//        if (type.equals("Circle")) {
+//            // Cirle area calculation
 //
-//    public class Main{
-//        public static void main(String[] args) {
-//            Baker baker = new Baker();
-//            baker.bakebBread();
-//            baker.manageInventory();
-//            baker.manageSuppliers();
-//            baker.manageCustomer();
-//
-//
-//
+//        } else if (type.equals("rectangle")) {
+//            // Rectangle area calculation
+//        }
+//        //Adding a traingle requires modifying this method
+//        return 0.0;
 //    }
 //}
 
-// class with single responsibility
-class Baker{
-    public void bakingBread(){
-        System.out.println("Baking bread");
-    }
+
+// Correct Approach
+abstract  class Shape{
+    abstract double calaculateArea();
+    // we can also use interfaces instead of abstract
 }
-class InventoryManager{
-    public void manageInventory(){
-        System.out.println("Manage Inventory");
+ class Circle extends Shape{
+    private double radius;
+// constructor
+
+
+    @Override
+    double calaculateArea() {
+        return Math.PI * radius * radius;
     }
-}
-class HandlingCustomers {
-    public void manageCustomers() {
-        System.out.println("Hi customers .. welcome to our bakery");
+ }
+   class Rectangle extends Shape{
+     private double height;
+      private double width;
+     @Override
+       double calaculateArea(){
+         return width*height;
+     }
 
-    }
+   }
+   class Triangle extends Shape {
+       private double base;
+       private double height;
 
-    public static void main(String[] args) {
-        Baker baker = new Baker();
-        baker.bakingBread();
+       @Override
+       double calaculateArea() {
+           return base * height;
+       }
 
-        InventoryManager inventoryManager = new InventoryManager();
-        inventoryManager.manageInventory();
+       public static void main(String[] args) {
+              Shape circle = new Circle();
+              Shape rectangle = new Rectangle();
+              Shape triangle = new Triangle();
 
-        HandlingCustomers handlingCustomers = new HandlingCustomers();
-        handlingCustomers.manageCustomers();
-    }
-}
+              System.out.println("Circle Area: " + circle.calaculateArea());
+              System.out.println("Rectangle Area: " + rectangle.calaculateArea());
+              System.out.println("Triangle Area: " + triangle.calaculateArea());
+
+       }
+   }
